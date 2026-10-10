@@ -1,98 +1,82 @@
 # Probabilistic grid forecasting
 
-Forecast hourly electricity demand for five Australian regional series and their
-derived aggregate, with 1-, 6-, 24- and 168-hour horizons. The runnable baseline
-compares seasonal residual forecasts with quantile XGBoost using rolling origins.
-The temporal model adds a patch transformer, covariance-based reconciliation and
-separate calibration for simultaneous regional prediction bands.
+Explore hourly electricity demand forecasts for five Australian regional series
+and their derived aggregate. Compare boosted trees and a temporal transformer,
+inspect coherent prediction bands, and replay missing or biased observations.
+Horizons are 1, 6, 24 and 168 hours.
 
-## Run
+![Regional demand explorer](docs/images/explorer.png)
 
-Use Python 3.11 in a separate environment. No GPU, credentials or paid services
-are required. On Windows, replace the activation command with
-`.venv\Scripts\Activate.ps1`.
+## Run the explorer
+
+Use Python 3.11 and Node.js 24 in a separate environment. No GPU, account or paid
+service is required. On Windows, activate with `.venv\Scripts\Activate.ps1`.
 
 ```sh
 python -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements/dev.txt -e .
-python -m pytest -q
-grid-forecast fetch --output data/raw
-grid-forecast prepare --raw data/raw --output runs/dataset
-grid-forecast backtest --data runs/dataset --output runs/baseline
-grid-forecast predict --data runs/dataset --model runs/baseline/models/2014-10-01/h24 --origin 2014-10-01T00:00:00
+python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -r requirements/service.txt -r requirements/tracking.txt -e .
+npm --prefix frontend ci
+npm --prefix frontend run build
+grid-pipeline --root runs/demo --device cpu
+grid-serve --data runs/demo/data --experiment runs/demo/experiment
 ```
 
-Open `runs/baseline/report.html` for the measured comparison. Downloads total
-about 38 MB. Existing run directories are protected; use a new output path to
-repeat an experiment. Models are generated locally and verified by checksum.
+Open [localhost:8012](http://127.0.0.1:8012). The pipeline downloads approximately
+38 MB of pinned data, trains both model families, evaluates them, checksums their
+artifacts and records the run in local MLflow. Allow several minutes after package
+installation; runtime depends on the machine. Models are trained locally from
+scratch. The service checks their identity before accepting requests.
 
-## Temporal model and calibration
+The [demo guide](docs/DEMO.md) explains the controls, custom-input API and recovery.
+The [architecture](docs/ARCHITECTURE.md) describes the local pipeline and service.
 
-The [probabilistic guide](docs/PROBABILISTIC.md) covers installation, training,
-checkpoint recovery and saved inference. Regional point forecasts and calibrated
-band endpoints add up to the aggregate. Aggregate bands are simultaneous
-envelopes, not marginal quantiles. All three transformer seeds are retained in
-the [measured comparison](results/probabilistic).
+## Measured results
 
-| Model/output | MASE | Simultaneous regional coverage |
-| --- | ---: | ---: |
-| Tree, raw | 0.751 | 19.1% |
-| Tree, reconciled and calibrated | 0.771 | 73.6% |
-| Transformer, raw | 1.041 | 29.2% |
-| Transformer, reconciled and calibrated | 1.090 | 71.1% |
+January–February 2015 forward evaluation, with fixed settings from the earlier
+2014 experiment. Models and calibration remain fixed within each 21-day test.
 
-Trees remain more accurate. Calibration widens the bands and improves joint
-coverage, but both models miss the intended 80% simultaneous target. Reconciling
-the point forecasts slightly increases error. These findings are retained
-without test-based retuning. The 774,144-forecast comparison took 121.57 seconds
-on an RTX 5070, peaking at 74.92 MiB of allocated GPU memory.
-
-## Forward evaluation and robustness
-
-The [repeatable experiment workflow](docs/EXPERIMENTS.md) adds a separate
-January–February 2015 forward test, causal missing-reading repair, peak and
-distribution-shift diagnostics, checksummed experiment versions, and local MLflow
-tracking. The model settings are unchanged from the earlier comparison.
-
-Calibrated tree MASE is 0.879 with 72.6% simultaneous coverage; the transformer
-scores 1.202 with 88.7% coverage and nearly twice the interval width. On matched
-daily origins, a 24-hour reading outage reduces coverage to 37.5% and 74.4%.
-Repair keeps forecasts runnable but does not preserve calibrated coverage.
-See all forecasts, scenarios and checks in [results/forward](results/forward).
-
-## Original measured baseline
-
-Four 28-day evaluation periods in 2014, six nodes, hourly forecast origins.
-MASE is mean absolute error scaled by training-only weekly differences; lower
-is better. Values below give equal weight to each fold and node, including the
-derived aggregate.
-
-| Horizon | Seasonal MASE | Tree MASE | Tree 80% coverage |
+| Calibrated model | MASE ↓ | Joint regional coverage | Mean band width, MW |
 | --- | ---: | ---: | ---: |
-| 1 hour | 1.160 | 0.379 | 64.7% |
-| 6 hours | 1.161 | 0.915 | 61.1% |
-| 24 hours | 1.167 | 0.747 | 72.9% |
-| 168 hours | 1.299 | 1.072 | 63.8% |
+| Boosted trees | 0.879 | 72.6% | 2,239 |
+| Transformer, three seeds | 1.202 | 88.7% | 4,328 |
 
-The tree forecasts improve point error but their intervals under-cover. Regional
-and aggregate forecasts are independent and are not yet reconciled. These are
-historical benchmark results, not deployment guarantees. Full scores, peak errors,
-coherence errors, validation choices and all 129,024 predictions are in
-[results/baseline](results/baseline). The run took 31.58 seconds on four CPU
-threads, with 346 MiB RSS sampled after horizon fits.
+Trees are more accurate but miss the nominal 80% joint-coverage target.
+Transformer bands cover more often and are nearly twice as wide. Under a
+24-hour reading outage, matched daily-origin coverage falls to 37.5% and 74.4%.
+Repair keeps inference running; it does not preserve calibration.
 
-## Data and method
+The original seasonal/tree baseline and the matched-cutoff temporal comparison
+remain available with every forecast, metric and model checksum:
 
-Pinned `tsibbledata` source files provide `OperationalLessIndustrial` demand for
-NSW, QLD, SA, TAS and VIC. This is not total national demand. The 2012–2014 window
-contains 26,304 complete hourly observations per node. `ALL_FIVE` sums the five
-recorded series on their original day/period clock; a shared UTC or civil-time
-mapping is not verified. No weather inputs are used.
+- [Seasonal and tree baseline](results/baseline) · [evaluation protocol](docs/EVALUATION.md)
+- [2014 temporal comparison](results/probabilistic) · [model and calibration method](docs/PROBABILISTIC.md)
+- [Forward and stress evaluation](results/forward) · [experiment workflow](docs/EXPERIMENTS.md)
+- [Service and reproduction checks](results/release) · [model card](docs/MODEL_CARD.md)
 
-- [Data, attribution and clock conventions](docs/DATA.md)
-- [Evaluation protocol and limitations](docs/EVALUATION.md)
+## Limits and data
 
-Source code is in `src/`, tests in `tests/`, configurations in `configs/`, and
-dependency pins in `requirements/`. Code and distributed derived results use
-[GPL-3.0-only](LICENSE); upstream data attribution is documented separately.
+This is a historical benchmark, not a live grid feed. Pinned `tsibbledata` files
+provide `OperationalLessIndustrial` demand for NSW, QLD, SA, TAS and VIC.
+`ALL_FIVE` sums those series; it is not official national demand. The original
+day/period clock has no verified shared UTC alignment. No weather is used.
+Simultaneous regional bands and aggregate envelopes are not marginal quantiles
+or guarantees for future demand. See [data attribution](docs/DATA.md).
+
+## Development
+
+```sh
+python -m pip install -r requirements/dev.txt
+python -m pytest -q
+cd frontend
+npx playwright install chromium
+npm test
+```
+
+Browser tests use an explicitly synthetic miniature experiment; release checks
+also exercise the real trained models. CI runs the base suite, full CPU suite,
+TypeScript build and browser tests. Source, frontend, tests, configs, dependency
+pins and evidence are grouped in their respective folders.
+
+Code and distributed derived results use [GPL-3.0-only](LICENSE).

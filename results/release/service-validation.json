@@ -1,0 +1,78 @@
+{
+  "checked_at_utc": "2026-10-10T16:23:13.165376+00:00",
+  "experiment_version": "3e6309bda1977e39c9708314f2a3b4bdb332b369ebeafa92011329ea31c610b1",
+  "forecast_rows_compared": 384,
+  "maximum_absolute_difference_mw": 0.0025709088586154394,
+  "comparison_tolerance": {
+    "relative": 2e-05,
+    "absolute_mw": 0.02
+  },
+  "startup_seconds": 0.3689952999993693,
+  "process_rss_mib": 638.84765625,
+  "device": "cpu",
+  "threads": 4,
+  "latency_method": "20 sequential warm ASGI requests per family; four horizons and six nodes per request, including response serialization. No network latency.",
+  "latency_ms": {
+    "tree": {
+      "p50": 25.94379999936791,
+      "p95": 28.94302000713651
+    },
+    "transformer": {
+      "p50": 20.219849997374695,
+      "p95": 21.81330500243348
+    }
+  },
+  "scenarios": [
+    {
+      "family": "tree",
+      "scenario": "clean",
+      "repaired_readings": 0
+    },
+    {
+      "family": "tree",
+      "scenario": "missing_6h",
+      "repaired_readings": 30
+    },
+    {
+      "family": "tree",
+      "scenario": "missing_24h",
+      "repaired_readings": 120
+    },
+    {
+      "family": "tree",
+      "scenario": "missing_10pct",
+      "repaired_readings": 87
+    },
+    {
+      "family": "tree",
+      "scenario": "bias_up_10pct_24h",
+      "repaired_readings": 0
+    },
+    {
+      "family": "transformer",
+      "scenario": "clean",
+      "repaired_readings": 0
+    },
+    {
+      "family": "transformer",
+      "scenario": "missing_6h",
+      "repaired_readings": 30
+    },
+    {
+      "family": "transformer",
+      "scenario": "missing_24h",
+      "repaired_readings": 120
+    },
+    {
+      "family": "transformer",
+      "scenario": "missing_10pct",
+      "repaired_readings": 87
+    },
+    {
+      "family": "transformer",
+      "scenario": "bias_up_10pct_24h",
+      "repaired_readings": 0
+    }
+  ],
+  "custom_history_actuals_suppressed": true
+}

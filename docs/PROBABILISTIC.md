@@ -2,12 +2,14 @@
 
 ## Run
 
-After the base setup and data preparation in the README, install pinned PyTorch
-in the same separate environment. The CPU version needs no GPU:
+To reproduce the original 2014 comparison, use the separate environment from the
+README and prepare its 2012–2014 dataset. The CPU version needs no GPU:
 
 ```sh
 python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -r requirements/temporal.txt -e .
+grid-forecast fetch --output data/raw
+grid-forecast prepare --raw data/raw --output runs/dataset
 grid-prob backtest --data runs/dataset --output runs/probabilistic --device cpu
 grid-prob predict --data runs/dataset --model runs/probabilistic/models/2014-10-01/transformer-42 --family transformer --origin 2014-10-01T00:00:00
 ```

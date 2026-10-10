@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Regional demand explorer</title></head>
+<body>
+<header><a class="brand" href="/" aria-label="Regional demand explorer home"><span class="brandmark">▥</span> Regional demand <b>Explorer</b></a><span class="status" id="connection">Connecting…</span></header>
+<main>
+<section class="intro"><div><p class="eyebrow">ELECTRICITY · FIVE REGIONS · ONE HIERARCHY</p><h1>See demand.<br><em>Understand uncertainty.</em></h1><p class="lede">Compare measured forecasts, inspect demand peaks, and see what happens when readings go missing.</p></div><div class="intro-note"><span class="note-number">01 / 02</span><b>Historical evidence, open to inspection.</b><p>January–February 2015 forward evaluation. All times use the archive’s original clock.</p><a href="/docs" target="_blank" rel="noopener">Explore the API ↗</a></div></section>
+<nav aria-label="Explorer views"><button data-view="backtest" class="active">Backtest</button><button data-view="forecast">Try a forecast</button><button data-view="evidence">Model evidence</button></nav>
+<div id="error" role="alert" hidden></div><p id="loading" role="status">Loading verified experiment…</p>
+<div class="workspace" id="workspace" hidden><aside id="controls"><p class="eyebrow">EXPLORE THE SERIES</p>
+<label>Evaluation period<select id="fold" aria-label="Evaluation period"></select></label>
+<label>Model<select id="family" aria-label="Model"><option value="tree">Quantile tree</option><option value="transformer">Temporal transformer</option></select></label>
+<label>Training seed<select id="seed" aria-label="Training seed"></select></label>
+<label>Region<select id="node" aria-label="Region"></select></label>
+<label id="horizon-label">Forecast horizon<select id="horizon" aria-label="Forecast horizon"></select></label>
+<div id="forecast-controls" hidden><label>Forecast origin<input id="origin" type="datetime-local" step="3600" aria-label="Forecast origin"></label><label>Observation scenario<select id="scenario" aria-label="Observation scenario"></select></label><button id="predict" class="primary">Run forecast →</button></div>
+<div class="side-note"><b>What the band means</b><p>Nominal 80% coverage for all five regions together. Actual coverage varies by model, horizon and input quality.</p></div>
+</aside><section id="content" aria-live="polite"></section></div>
+<footer><b>Read the limits.</b> Historical benchmark, not a live grid feed. Missing or biased readings can reduce coverage. ALL_FIVE is a derived sum, not official national demand. Physical UTC alignment is unverified.<p id="version"></p></footer>
+</main><script type="module" src="/src/main.ts"></script>
+</body></html>

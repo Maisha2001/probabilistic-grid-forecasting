@@ -1,0 +1,108 @@
+{
+  "verified_at_utc": "2026-10-10T16:27:53.850786+00:00",
+  "python": "3.11.15",
+  "platform": "Windows",
+  "cpu_threads": 4,
+  "cpu_reproduction": {
+    "experiment_version": "4272459f816c55fa717cda83775b401f8869174e4ee96aa3b3cc265d7638b086",
+    "inventory_files_verified": 44,
+    "compute": {
+      "seconds_this_invocation": 69.93299539999862,
+      "device": "cpu",
+      "torch": "2.11.0+cpu",
+      "gpu": null,
+      "peak_allocated_gpu_mib": 0,
+      "rss_mib_after_run": 696.08984375
+    },
+    "forecast_rows": 290304,
+    "stress_rows": 20160,
+    "stress_seconds": 16.84798679999949,
+    "source_data_sha256": "e5c733f36b38715081d6fa09cf5d69a161aa493d6523deb19a1aef4153c585ed",
+    "predictions_sha256": "2f8d62e1bd94b872d1c0164c61f56f4db9777f5b5c06d2ae401a8b105ddac851",
+    "summary": [
+      {
+        "family": "transformer",
+        "method": "calibrated",
+        "mase": 1.1995568980325704,
+        "coverage_80": 0.9808752204585538,
+        "width_mw": 4428.2005257348665,
+        "simultaneous_leaf_coverage": 0.8993055555555555
+      },
+      {
+        "family": "transformer",
+        "method": "raw",
+        "mase": 1.1292615933119918,
+        "coverage_80": 0.763778659611993,
+        "width_mw": 1254.8835394574626,
+        "simultaneous_leaf_coverage": 0.3039021164021164
+      },
+      {
+        "family": "transformer",
+        "method": "reconciled",
+        "mase": 1.1995568980325704,
+        "coverage_80": 0.7258460097001763,
+        "width_mw": 1254.8835394574626,
+        "simultaneous_leaf_coverage": 0.20841600529100526
+      },
+      {
+        "family": "tree",
+        "method": "calibrated",
+        "mase": 0.8785450267739194,
+        "coverage_80": 0.9444444444444445,
+        "width_mw": 2238.6927624391424,
+        "simultaneous_leaf_coverage": 0.7264384920634921
+      },
+      {
+        "family": "tree",
+        "method": "raw",
+        "mase": 0.8258273553944667,
+        "coverage_80": 0.710854828042328,
+        "width_mw": 872.5584153699293,
+        "simultaneous_leaf_coverage": 0.22247023809523808
+      },
+      {
+        "family": "tree",
+        "method": "reconciled",
+        "mase": 0.8785450267739194,
+        "coverage_80": 0.6847304894179894,
+        "width_mw": 872.5584153699293,
+        "simultaneous_leaf_coverage": 0.1684027777777778
+      }
+    ],
+    "resume_seconds": 2.901873399998294,
+    "completed_resume_unchanged": true,
+    "tracking_status": "FINISHED",
+    "same_device_cpu_predictions_match_cuda_build_running_on_cpu": true
+  },
+  "python_tests": {
+    "tests": "50",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "16.493"
+  },
+  "browser_real": {
+    "startTime": "2026-10-10T16:22:50.498Z",
+    "duration": 1539.841,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "browser_synthetic": {
+    "startTime": "2026-10-10T16:24:15.942Z",
+    "duration": 6361.299,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "checks": [
+    "Fresh CPU-only environment: dependency check passed",
+    "TypeScript strict build passed",
+    "Desktop and mobile explorer visually inspected",
+    "Published baseline, temporal and forward result files unchanged",
+    "All training settings retained; no test-based tuning"
+  ],
+  "windows_notes": "Validation required a short writable pytest temporary path; deeply nested MLflow artifact paths can exceed Windows limits."
+}

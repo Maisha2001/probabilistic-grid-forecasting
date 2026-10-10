@@ -6,3 +6,6 @@ data/
 runs/
 build/
 dist/
+node_modules/
+playwright-report/
+test-results/

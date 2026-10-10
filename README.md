@@ -5,7 +5,19 @@ and their derived aggregate. Compare boosted trees and a temporal transformer,
 inspect coherent prediction bands, and replay missing or biased observations.
 Horizons are 1, 6, 24 and 168 hours.
 
+## Demo
+
+[Setup](#run-the-explorer) · [Screenshot gallery](docs/DEMO.md#screenshots) ·
+[Open locally after setup](http://127.0.0.1:8012)
+
+The interactive explorer runs on your computer with a Python service and locally
+trained models. There is no publicly hosted instance.
+
 ![Regional demand explorer](docs/images/explorer.png)
+
+Actual demo: NSW, 24-hour tree forecasts, January 2015 snapshot. The chart
+compares recorded demand with predictions and uncertainty bands.
+The gallery also shows a forecast after 24 hours of missing readings.
 
 ## Run the explorer
 

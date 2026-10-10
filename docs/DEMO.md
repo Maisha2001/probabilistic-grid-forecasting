@@ -4,6 +4,25 @@ Follow the [README setup](../README.md). Keep `grid-serve` running and open
 [the local explorer](http://127.0.0.1:8012). Stop it with Ctrl+C. The interface
 loads local assets only and needs no account.
 
+## Screenshots
+
+These captures use the real local service and the published forward experiment's
+trained models. There is no public hosted instance; the local link above works
+after setup on your own computer.
+
+![Backtest showing actual demand, forecasts and simultaneous bands for NSW](images/explorer.png)
+
+**Backtest:** January 2015 snapshot, tree model, seed 42, NSW, 24-hour horizon.
+The visible week has 98.8% single-region coverage; 66.3% is the separate,
+whole-period joint coverage for this snapshot and horizon.
+
+![Forecast with repaired missing readings, four horizons and a coverage warning](images/forecast-outage.png)
+
+**Missing readings:** the same model at origin January 1, 2015, with the last
+24 hours withheld across five regions. The service repairs 120 readings and
+shows four forecast horizons with an explicit coverage warning. This is an
+observation-failure simulation on historical data, not a live grid outage.
+
 ## Explore
 
 - **Backtest:** choose the January or February snapshot, model, seed, region and

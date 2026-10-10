@@ -1,0 +1,4 @@
+-r base.txt
+mlflow-skinny==3.16.1
+sqlalchemy==2.0.43
+alembic==1.16.5

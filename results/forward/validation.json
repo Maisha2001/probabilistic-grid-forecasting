@@ -1,0 +1,54 @@
+{
+  "experiment_version": "3e6309bda1977e39c9708314f2a3b4bdb332b369ebeafa92011329ea31c610b1",
+  "verified_inventory_files": 44,
+  "independently_recomputed_metric_groups": 576,
+  "max_coherence_error_mw": 0.0,
+  "clean_stress_forecasts_matched": 4032,
+  "clean_stress_max_difference_mw": 0.0027238257680437528,
+  "cpu_reloaded_node_forecasts": 384,
+  "cpu_max_difference_mw": 0.0025709088586154394,
+  "forecast_tolerance": {
+    "rtol": 2e-05,
+    "atol_mw": 0.02
+  },
+  "verifier_sha256": "a28cca3436a46f7d1d8444b219695155e4f552fdbdfe23f2bf141ca983c1fa97",
+  "repeat": {
+    "exact_file_matches": {
+      "fit/predictions.parquet": true,
+      "audit/stress.parquet": true,
+      "audit/diagnostics.json": true
+    },
+    "exact_model_and_calibration_files": 22,
+    "metric_groups_identical": true,
+    "first_version": "3e6309bda1977e39c9708314f2a3b4bdb332b369ebeafa92011329ea31c610b1",
+    "repeat_version": "b18e2012a1c3b1c1e54d1d450b2840a18df66ed1236e0af2c5eee9fe36639928",
+    "repeat_compute": {
+      "seconds_this_invocation": 55.13951419999648,
+      "device": "cuda",
+      "torch": "2.11.0+cu128",
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "peak_allocated_gpu_mib": 74.916015625,
+      "rss_mib_after_run": 1838.53125
+    }
+  },
+  "local_tracking": {
+    "run_id": "ac269abb1c654faf9450ad5181f51bcc",
+    "experiment_id": "1",
+    "version": "3e6309bda1977e39c9708314f2a3b4bdb332b369ebeafa92011329ea31c610b1",
+    "status": "FINISHED",
+    "metrics": {
+      "transformer.calibrated.mase": 1.2022540916728686,
+      "transformer.raw.mase": 1.1418821296544566,
+      "transformer.reconciled.mase": 1.2022540916728686,
+      "tree.calibrated.mase": 0.8785450267739193,
+      "tree.raw.mase": 0.8258273553944667,
+      "tree.reconciled.mase": 0.8785450267739193
+    },
+    "mlflow_version": "3.16.1",
+    "storage": "Local SQLite and local artifacts; no server required"
+  },
+  "tests": {
+    "passed": 37,
+    "seconds": 16.31
+  }
+}

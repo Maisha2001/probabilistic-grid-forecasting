@@ -19,6 +19,8 @@ def main():
     clean = commands.add_parser("prepare")
     clean.add_argument("--raw", type=Path, default=Path("data/raw"))
     clean.add_argument("--output", type=Path, default=Path("runs/dataset"))
+    clean.add_argument("--start", default="2012-01-01")
+    clean.add_argument("--end", default="2015-01-01")
     evaluate = commands.add_parser("backtest")
     evaluate.add_argument("--data", type=Path, default=Path("runs/dataset"))
     evaluate.add_argument("--config", type=Path, default=Path("configs/baseline.json"))
@@ -32,7 +34,7 @@ def main():
         if args.command == "fetch":
             fetch(args.output)
         elif args.command == "prepare":
-            prepare(args.raw, args.output)
+            prepare(args.raw, args.output, args.start, args.end)
         elif args.command == "backtest":
             report = backtest(args.data, read_json(args.config), args.output)
             print(json.dumps({"prediction_rows": report["prediction_rows"], "compute": report["compute"]}))

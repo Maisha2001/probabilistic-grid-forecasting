@@ -13,6 +13,7 @@ dynamic = ["dependencies"]
 [project.scripts]
 grid-forecast = "grid_forecast.cli:main"
 grid-prob = "grid_forecast.prob_cli:main"
+grid-experiment = "grid_forecast.experiment_cli:main"
 
 [tool.setuptools.dynamic]
 dependencies = {file = "requirements/base.txt"}

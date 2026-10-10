@@ -48,6 +48,19 @@ the point forecasts slightly increases error. These findings are retained
 without test-based retuning. The 774,144-forecast comparison took 121.57 seconds
 on an RTX 5070, peaking at 74.92 MiB of allocated GPU memory.
 
+## Forward evaluation and robustness
+
+The [repeatable experiment workflow](docs/EXPERIMENTS.md) adds a separate
+January–February 2015 forward test, causal missing-reading repair, peak and
+distribution-shift diagnostics, checksummed experiment versions, and local MLflow
+tracking. The model settings are unchanged from the earlier comparison.
+
+Calibrated tree MASE is 0.879 with 72.6% simultaneous coverage; the transformer
+scores 1.202 with 88.7% coverage and nearly twice the interval width. On matched
+daily origins, a 24-hour reading outage reduces coverage to 37.5% and 74.4%.
+Repair keeps forecasts runnable but does not preserve calibrated coverage.
+See all forecasts, scenarios and checks in [results/forward](results/forward).
+
 ## Original measured baseline
 
 Four 28-day evaluation periods in 2014, six nodes, hourly forecast origins.

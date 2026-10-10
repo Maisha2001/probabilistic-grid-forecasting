@@ -1,0 +1,87 @@
+{
+  "config": {
+    "folds": [
+      "2015-01-01T00:00:00",
+      "2015-02-01T00:00:00"
+    ],
+    "test_days": 21,
+    "validation_days": 28,
+    "calibration_days": 14,
+    "training_hours": 8760,
+    "training_stride": 6,
+    "evaluation_stride": 1,
+    "horizons": [
+      1,
+      6,
+      24,
+      168
+    ],
+    "quantiles": [
+      0.1,
+      0.5,
+      0.9
+    ],
+    "candidates": [
+      {
+        "max_depth": 3,
+        "n_estimators": 120
+      },
+      {
+        "max_depth": 5,
+        "n_estimators": 120
+      }
+    ],
+    "learning_rate": 0.07,
+    "seed": 42,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "threads": 4,
+    "coverage": 0.8,
+    "neural": {
+      "history_hours": 336,
+      "patch_hours": 24,
+      "d_model": 48,
+      "heads": 4,
+      "layers": 2,
+      "dropout": 0.1,
+      "epochs": 30,
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "weight_decay": 0.0001
+    }
+  },
+  "data_sha256": "e5c733f36b38715081d6fa09cf5d69a161aa493d6523deb19a1aef4153c585ed",
+  "source_sha256": {
+    "__init__.py": "e7a71c3a01eb0044c5b34d5dde3e6b092129b47e158e18d64c1e7d0855f99adc",
+    "__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+    "cli.py": "b46cbb1fffa53bde2741cefbad7629b4d689c34031a24e96f4ef94deda066b6a",
+    "data.py": "d8c134854e2810abbab19064a7c24f9cc7c2a99a7a74782e9efb941f505856b2",
+    "evaluation.py": "8df86de6a1116e6c5b236da39d6bd04917f9abdc08a1226bd591071fe5ac4906",
+    "experiment_cli.py": "3ac3dd57ff2bf741eae573d24793ef298523c706eb5ae8593207b61a1bf6084d",
+    "experiments.py": "3c5a89b9b39a0b1e2484bdcd85d122868a2d321271cc27a347e02478c22cd9ef",
+    "features.py": "d41b5606dd0b03b03bc4980722f6e516b47c9b43a0cdff5d9766151ecce504bc",
+    "io.py": "ffb7c4e7b5bad687a4cba52482c2dba87ea38b14a06e6f25e33ccbf2245de8dd",
+    "model.py": "fc4b9acbbbc31e2ef733ebe84a519941602f72687c4b1a4dee91373c4c11e549",
+    "prob_cli.py": "e3d5a96adb6248419e8d88e786cc75abe5ab09b224e096a941afbe202ecb2d67",
+    "probabilistic.py": "281ce34f58a7575072196436b876b94033c4b0544729176ac495b243243bb1bf",
+    "reconciliation.py": "b8451c30f65fb183aa7c600703423761291b34d372631f0f086c4b178ecaa7a7",
+    "report.py": "5c20c91fe1b98ea24bd6a86f283443c8295a0a5ed062165df6dee221c051acf0",
+    "robustness.py": "5b7d1ee10479e54ec7e4e1011ac80746fc20d6523b484f438f29f0c3c7a7a569",
+    "temporal.py": "dd0f7dcb18b3a8c00908cc720289a0811fb70bb165456974d593056f3d8d3c94"
+  },
+  "packages": {
+    "numpy": "2.4.2",
+    "pandas": "2.3.3",
+    "pyarrow": "23.0.1",
+    "duckdb": "1.4.4",
+    "xgboost": "3.2.0",
+    "scikit-learn": "1.8.0",
+    "torch": "2.11.0+cu128"
+  },
+  "device": "cuda",
+  "stress_stride": 24,
+  "policy": "Fixed models and calibration; diagnostic slices and observation perturbations never select hyperparameters. Future targets remain unaltered."
+}

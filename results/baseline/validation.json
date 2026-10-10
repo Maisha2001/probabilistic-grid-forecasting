@@ -1,0 +1,23 @@
+{
+  "tests": {
+    "passed": 21,
+    "seconds": 4.45,
+    "platform": "Windows, Python 3.11.15"
+  },
+  "real_data": {
+    "prediction_rows_checked": 129024,
+    "metric_groups_independently_checked": 192,
+    "reloaded_node_forecasts_exact": 1152,
+    "cli_node_forecasts_exact": 6,
+    "source_and_prediction_checksums": "pass"
+  },
+  "verification_seconds": 5.32650619999913,
+  "training_feasibility": {
+    "seconds": 0.17608669999754056,
+    "rss_mib_after_fit": 304.0703125,
+    "training_rows": 8736,
+    "threads": 4,
+    "device": "CPU",
+    "purpose": "Compute feasibility on the first fold training prefix only; no test predictions or tuning."
+  }
+}

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "probabilistic-grid-forecasting"
+version = "0.1.0"
+description = "Rolling regional electricity demand forecasts and measured uncertainty"
+requires-python = ">=3.11"
+license = "GPL-3.0-only"
+dynamic = ["dependencies"]
+
+[project.scripts]
+grid-forecast = "grid_forecast.cli:main"
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements/base.txt"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

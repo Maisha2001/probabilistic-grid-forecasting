@@ -1,0 +1,11 @@
+{
+  "folds": ["2014-01-01T00:00:00", "2014-04-01T00:00:00", "2014-07-01T00:00:00", "2014-10-01T00:00:00"],
+  "test_days": 28, "validation_days": 28, "calibration_days": 14,
+  "training_hours": 8760, "training_stride": 6, "evaluation_stride": 1,
+  "horizons": [1, 6, 24, 168], "quantiles": [0.1, 0.5, 0.9],
+  "candidates": [{"max_depth": 3, "n_estimators": 120}, {"max_depth": 5, "n_estimators": 120}],
+  "learning_rate": 0.07, "seed": 42, "seeds": [42, 43, 44], "threads": 4,
+  "coverage": 0.8,
+  "neural": {"history_hours": 336, "patch_hours": 24, "d_model": 48, "heads": 4, "layers": 2,
+             "dropout": 0.1, "epochs": 30, "batch_size": 64, "learning_rate": 0.001, "weight_decay": 0.0001}
+}

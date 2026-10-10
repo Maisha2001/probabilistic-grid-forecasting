@@ -1,0 +1,36 @@
+{
+  "real_prediction_rows": 774144,
+  "reloaded_node_forecasts": 3360,
+  "max_absolute_difference_mw": {
+    "cpu": 0.002546188912674552,
+    "cuda": 0.0022802655039413366
+  },
+  "tolerance": {
+    "rtol": 2e-05,
+    "atol_mw": 0.02
+  },
+  "cli_families_verified": [
+    "tree",
+    "transformer"
+  ],
+  "artifact_checksums_verified": 72,
+  "sources_checksums": "pass",
+  "calibration_and_selection_cutoffs": "strictly before next block",
+  "verification_seconds": 60.7750320999985,
+  "feasibility": {
+    "seconds_one_epoch_with_setup": 2.032541200002015,
+    "peak_gpu_mib": 74.462890625,
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "torch": "2.11.0+cu128",
+    "test_predictions_used": false,
+    "purpose": "Measured feasibility on training and selection data before full fixed experiment"
+  },
+  "tests": {
+    "passed": 27,
+    "seconds": 13.23,
+    "platform": "Windows/Python3.11.15",
+    "includes": "Full-pipeline future perturbation; exact CPU interrupted-training recovery; calibration rank and projection checks"
+  },
+  "metric_groups_independently_checked": 1152,
+  "all_calibrated_outputs_max_sum_error_mw": 0
+}

@@ -3,6 +3,8 @@
 Forecast hourly electricity demand for five Australian regional series and their
 derived aggregate, with 1-, 6-, 24- and 168-hour horizons. The runnable baseline
 compares seasonal residual forecasts with quantile XGBoost using rolling origins.
+The temporal model adds a patch transformer, covariance-based reconciliation and
+separate calibration for simultaneous regional prediction bands.
 
 ## Run
 
@@ -25,7 +27,28 @@ Open `runs/baseline/report.html` for the measured comparison. Downloads total
 about 38 MB. Existing run directories are protected; use a new output path to
 repeat an experiment. Models are generated locally and verified by checksum.
 
-## Measured baseline
+## Temporal model and calibration
+
+The [probabilistic guide](docs/PROBABILISTIC.md) covers installation, training,
+checkpoint recovery and saved inference. Regional point forecasts and calibrated
+band endpoints add up to the aggregate. Aggregate bands are simultaneous
+envelopes, not marginal quantiles. All three transformer seeds are retained in
+the [measured comparison](results/probabilistic).
+
+| Model/output | MASE | Simultaneous regional coverage |
+| --- | ---: | ---: |
+| Tree, raw | 0.751 | 19.1% |
+| Tree, reconciled and calibrated | 0.771 | 73.6% |
+| Transformer, raw | 1.041 | 29.2% |
+| Transformer, reconciled and calibrated | 1.090 | 71.1% |
+
+Trees remain more accurate. Calibration widens the bands and improves joint
+coverage, but both models miss the intended 80% simultaneous target. Reconciling
+the point forecasts slightly increases error. These findings are retained
+without test-based retuning. The 774,144-forecast comparison took 121.57 seconds
+on an RTX 5070, peaking at 74.92 MiB of allocated GPU memory.
+
+## Original measured baseline
 
 Four 28-day evaluation periods in 2014, six nodes, hourly forecast origins.
 MASE is mean absolute error scaled by training-only weekly differences; lower
